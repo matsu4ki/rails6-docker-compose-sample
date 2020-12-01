@@ -1,0 +1,33 @@
+version: '3' # 設定ファイルのバージョン
+services:
+  db: # dbコンテナに対する設定
+    build: # 参照用dockerファイル保存場所
+      context: .
+      dockerfile: ./docker/postgresql.dockerfile
+    volumes: # ローカルと共有するファイル指定
+      - ./tmp/db:/var/lib/postgresql/data
+    ports: # 開放ポート
+      - 5432:5432
+      # コンテナ内の環境変数を設定する
+      # 詳細説明は以下
+      # https://hub.docker.com/_/postgres/
+      # https://crudzoo.com/blog/docker-postgres
+    environment:
+      POSTGRES_USER: postgresql
+      POSTGRES_PASSWORD: postgresql
+    restart: always
+  web:
+    build:
+      context: .
+      dockerfile: ./docker/web.dockerfile
+    # 本番用：command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rdebug-ide --host 0.0.0.0 --port 1234 --dispatcher-port 26162 -- bin/rails s -b '0.0.0.0'"
+    volumes:
+      - .:/rails6-docker-compose-sample
+    ports:
+      - "3000:3000" # rails用
+      - "1234:1234" # debug用
+      - "26162:26162" # debug用
+    depends_on:
+      - db # 依存しているコンテナを記載する
+    restart: always # docker起動時にコンテナを走らせるか
