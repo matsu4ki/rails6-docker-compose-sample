@@ -1,2 +1,2 @@
 #!/bin/bash
-docker-compose run --no-deps web rails new . --force --database=postgresql --skip-bundle
+docker-compose run web rails new . --force --no-deps --database=postgresql --skip-bundle
