@@ -31,7 +31,7 @@ docker-compose up
 #docker-compose up -d
 
 # !!!やり直し系コマンド!!!
-# 同しようもない場合はcloneし直したほうが早いかも
+# どうしようもない場合はcloneし直したほうが早いかも
 # docker-compose down --rmi all --volumes --remove-orphans
 # git clean -fdx
 # git reset --hard HEAD
