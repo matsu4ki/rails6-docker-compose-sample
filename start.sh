@@ -20,10 +20,10 @@ sed -ie "43i  \ \ # for debug\n\ \ gem 'ruby-debug-ide'\n\ \ gem 'debase'" Gemfi
 docker-compose build
 
 # webpackerのinstall処理
-docker-compose run web bundle exec rails webpacker:install
+docker-compose run --rm web bundle exec rails webpacker:install
 
 # db作成
-docker-compose run web rails db:create
+docker-compose run --rm web rails db:create
 
 # コンテナ起動
 docker-compose up
