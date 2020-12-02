@@ -13,8 +13,8 @@ services:
       # https://hub.docker.com/_/postgres/
       # https://crudzoo.com/blog/docker-postgres
     environment:
-      POSTGRES_USER: postgresql
-      POSTGRES_PASSWORD: postgresql
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
     restart: always
   web:
     build:
